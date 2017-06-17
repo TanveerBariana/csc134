@@ -1,0 +1,47 @@
+1) Retrieve the drugs’ information (trade name and formula) which are manufactured
+by company “Pfizer”. Order the result by trade name.
+
+SELECT trade_name, formula FROM  DRUG where pname= 'Pfizer' ;
+ 
++------------+---------+
+| trade_name | formula |
++------------+---------+
+| HERP       | DERP    |
+| tylenol    | TYNL    |
++------------+---------+
+
+2) List drug information (Pharmaceutical company name, trade name, formula) that
+has been prescribed by at least one doctor.
+
+SELECT pname, trade_name, formula 
+from CONSIST_OF co 
+inner JOIN PRESCRIPTION p 
+ON co.dssn= p.dssn, co.pre_no = p.pre_no
+inner JOIN DRUG d 
+on co.trade_name= d.trade_name, co.pname = d.pname 
+where EXISTS(select pre_no from PRESCRIPTION);
+
+3) Obtain all the prescription drugs (trade name, company name and prescription
+date) given by Doctor “Elle Elmasri”.
+
+from from CONSIST_OF co 
+inner JOIN PRESCRIPTION p 
+ON co.dssn= p.dssn, co.pre_no = p.pre_no
+inner JOIN DRUG d 
+on co.trade_name= d.trade_name, co.pname = d.pname
+inner join DOCTOR d
+on d.dssn= p.dssn
+where dname= 'Elle Elmasri'
+
+4) Retrieve all the drugs (trade_name, formula) sold by “CVS”. (“CVS” is pharmacy
+name).
+
+
+5) Retrieve number of type of drugs made by “Pfizer”. (Type is distinguished by
+“trade_name”).
+6) Obtain information (pharmacy name, address) of pharmacy that sells “Tylenol”
+with the lowest price among all pharmacies. (“Tylenol” is trade name)
+7) Retrieve the pharmacies that sell more than 2 types of drugs. List pharmacy name
+and number of types of drugs sold. (Type is distinguished by “trade_name”.
+However, if two drugs with the same trade name are produced by two different
+pharmaceutical companies, they are considered as two different types of drugs.)
